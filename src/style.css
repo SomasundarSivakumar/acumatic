@@ -1,0 +1,2528 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import "tailwindcss";
+
+/* ─── Custom Design Tokens ────────────────────────────────── */
+
+@theme {
+  --font-sans: 'Manrope', sans-serif;
+  --font-display: 'Space Mono', monospace;
+
+  --color-brand-bg: #03000a;
+  --color-brand-card: #0c0817;
+  --color-brand-primary: #00f2fe;
+  --color-brand-secondary: #4facfe;
+  --color-brand-accent: #00ff87;
+}
+
+/* ─── Global Reset & Smooth Scroll ────────────────────────── */
+html {
+  scroll-behavior: initial;
+  background-color: var(--color-brand-bg);
+  overflow-x: hidden;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: #f3f4f6;
+  background-color: var(--color-brand-bg);
+  overflow-x: hidden;
+  margin: 0;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #03000a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e1b29;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00f2fe;
+}
+
+/* ─── UI Utility Classes ────────────────────────────────────── */
+.glow-text {
+  text-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #00ff87 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+}
+
+.glass-card {
+  background: rgba(12, 8, 23, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card:hover {
+  border-color: rgba(0, 242, 254, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 242, 254, 0.05);
+}
+
+.neon-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.neon-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
+  transition: 0.5s;
+}
+
+.neon-btn:hover::before {
+  left: 100%;
+}
+
+/* Horizontal Scroll Container */
+.horizontal-scroll-section {
+  display: flex;
+  flex-wrap: nowrap;
+  will-change: transform;
+}
+
+/* Mesh Gradients */
+.bg-grid-overlay {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CTA Banner — last section
+   ═══════════════════════════════════════════════════════════════ */
+
+.cta-banner-section {
+  background: linear-gradient(165deg, #03000a 0%, #051818 45%, #03000a 100%);
+  border-top: 1px solid rgba(5, 198, 197, 0.15);
+}
+
+.cta-banner-glow {
+  position: absolute;
+  width: min(55vw, 480px);
+  height: min(55vw, 480px);
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cta-banner-glow--left {
+  top: -20%;
+  left: -15%;
+  background: rgba(5, 198, 197, 0.14);
+}
+
+.cta-banner-glow--right {
+  bottom: -25%;
+  right: -12%;
+  background: rgba(2, 132, 199, 0.12);
+}
+
+.cta-banner-title,
+.cta-banner-desc,
+.cta-banner-btn {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.cta-banner-btn {
+  box-shadow: 0 4px 24px rgba(5, 198, 197, 0.4);
+}
+
+/* Custom Background Image */
+.bg-acumatic {
+  background-image: url('./assets/images/acumatic_bg.png');
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+}
+
+/* ─── Hero Waves Moving Animations ────────────────────────── */
+
+/* ── SVG Lines layer ── */
+.hero-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* 1. Organic Multi-layered Floating Drift */
+@keyframes wave-float-1 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-8px, -6px);
+  }
+}
+
+@keyframes wave-float-2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(6px, 8px);
+  }
+}
+
+@keyframes wave-float-3 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-4px, 5px);
+  }
+}
+
+@keyframes wave-float-4 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(7px, -5px);
+  }
+}
+
+.wave-group-1 {
+  animation: wave-float-1 12s ease-in-out infinite;
+}
+
+.wave-group-2 {
+  animation: wave-float-2 16s ease-in-out infinite;
+}
+
+.wave-group-3 {
+  animation: wave-float-3 20s ease-in-out infinite;
+}
+
+.wave-group-4 {
+  animation: wave-float-4 15s ease-in-out infinite;
+}
+
+/* 2. Flowing Glowing Light Pulses / Data Streams */
+@keyframes flow-forward {
+  0% {
+    stroke-dashoffset: 1200;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.flow-line-1 {
+  stroke-dasharray: 180 380;
+  stroke-dashoffset: 1200;
+  animation: flow-forward 14s linear infinite;
+}
+
+.flow-line-2 {
+  stroke-dasharray: 120 280;
+  stroke-dashoffset: 1200;
+  animation: flow-forward 9s linear infinite;
+}
+
+.flow-line-3 {
+  stroke-dasharray: 150 340;
+  stroke-dashoffset: 1200;
+  animation: flow-forward 12s linear infinite;
+}
+
+.flow-line-4 {
+  stroke-dasharray: 170 300;
+  stroke-dashoffset: 1200;
+  animation: flow-forward 8s linear infinite;
+}
+
+/* 3. Constellation & Node Glow Breathing */
+@keyframes node-glow-pulse {
+
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1.0;
+  }
+}
+
+@keyframes halo-breath {
+
+  0%,
+  100% {
+    opacity: 0.14;
+  }
+
+  50% {
+    opacity: 0.38;
+  }
+}
+
+@keyframes stars-twinkle {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes plexus-breathe {
+
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+
+  50% {
+    opacity: 1.0;
+  }
+}
+
+.node-glow-teal,
+.node-glow-green,
+.node-glow-gold {
+  animation: node-glow-pulse 4s ease-in-out infinite;
+}
+
+.node-halo-teal,
+.node-halo-green {
+  animation: halo-breath 3.5s ease-in-out infinite;
+}
+
+.node-glow-stars {
+  animation: stars-twinkle 6s ease-in-out infinite;
+}
+
+.plexus-grid,
+.plexus-accent-grid {
+  animation: plexus-breathe 8s ease-in-out infinite;
+}
+
+/* ─── Navigation Menu Links ─── */
+
+/* ── Glassmorphism Header ── */
+.header-transparent {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid transparent !important;
+  box-shadow: none !important;
+}
+
+.header-glass {
+  background: #ffffff !important;
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-bottom: 1px solid rgba(5, 198, 197, 0.25);
+  box-shadow: 0 4px 30px rgba(5, 198, 197, 0.18) !important;
+}
+
+/* ── Hide header when scrolling down ── */
+.header-hidden {
+  transform: translateY(-100%) !important;
+}
+
+/* ─── About Section Corner AI SVG Decorations ─── */
+.about-deco-tr,
+.about-deco-bl {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.75;
+}
+
+/* Top-right corner */
+.about-deco-tr {
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 230px;
+}
+
+/* Bottom-left corner */
+.about-deco-bl {
+  bottom: 0;
+  left: 0;
+  width: 280px;
+  height: 230px;
+}
+
+/* Signal line flow-dash animations */
+@keyframes ab-flow-dash {
+  0% {
+    stroke-dashoffset: 600;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ab-flow-dash-rev {
+  0% {
+    stroke-dashoffset: -600;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.ab-tr-line-1 {
+  stroke-dasharray: 40 8;
+  stroke-dashoffset: 600;
+  animation: ab-flow-dash 4s linear infinite;
+}
+
+.ab-tr-line-2 {
+  stroke-dasharray: 30 8;
+  stroke-dashoffset: 600;
+  animation: ab-flow-dash 5.5s linear infinite 0.6s;
+}
+
+.ab-tr-line-3 {
+  stroke-dasharray: 20 8;
+  stroke-dashoffset: 600;
+  animation: ab-flow-dash 7s linear infinite 1.2s;
+}
+
+.ab-bl-line-1 {
+  stroke-dasharray: 40 8;
+  stroke-dashoffset: -600;
+  animation: ab-flow-dash-rev 4s linear infinite 0.3s;
+}
+
+.ab-bl-line-2 {
+  stroke-dasharray: 30 8;
+  stroke-dashoffset: -600;
+  animation: ab-flow-dash-rev 5.5s linear infinite 0.9s;
+}
+
+.ab-bl-line-3 {
+  stroke-dasharray: 20 8;
+  stroke-dashoffset: -600;
+  animation: ab-flow-dash-rev 7s linear infinite 1.5s;
+}
+
+/* Glowing white pulse runner */
+@keyframes ab-pulse-dash {
+  0% {
+    stroke-dasharray: 0 400;
+    stroke-dashoffset: 0;
+    opacity: 0.8;
+  }
+
+  50% {
+    stroke-dasharray: 80 320;
+    stroke-dashoffset: -160;
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dasharray: 0 400;
+    stroke-dashoffset: -400;
+    opacity: 0;
+  }
+}
+
+.ab-tr-flow-pulse {
+  stroke-dasharray: 0 400;
+  animation: ab-pulse-dash 3.2s ease-in-out infinite;
+}
+
+.ab-bl-flow-pulse {
+  stroke-dasharray: 0 400;
+  animation: ab-pulse-dash 3.2s ease-in-out infinite 1.6s;
+}
+
+/* Scanning arc dash animation */
+@keyframes ab-arc-breathe {
+
+  0%,
+  100% {
+    opacity: 0.2;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    opacity: 0.5;
+    stroke-dashoffset: -40;
+  }
+}
+
+.ab-tr-arc {
+  animation: ab-arc-breathe 6s ease-in-out infinite;
+}
+
+.ab-tr-arc-2 {
+  animation: ab-arc-breathe 9s ease-in-out infinite 1s;
+}
+
+.ab-bl-arc {
+  animation: ab-arc-breathe 6s ease-in-out infinite 0.5s;
+}
+
+.ab-bl-arc-2 {
+  animation: ab-arc-breathe 9s ease-in-out infinite 1.5s;
+}
+
+/* Glowing node pulse */
+@keyframes ab-node-glow {
+
+  0%,
+  100% {
+    opacity: 0.65;
+    r: 2.5;
+  }
+
+  50% {
+    opacity: 1;
+    r: 3.5;
+  }
+}
+
+.ab-node-pulse {
+  animation: ab-node-glow 2.8s ease-in-out infinite;
+}
+
+/* ─── Navigation Menu Links ─── */
+.header-transparent .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.header-glass .nav-link {
+  color: #0f172a !important;
+}
+
+.nav-link {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  position: relative;
+  letter-spacing: -0.01em;
+}
+
+.nav-link:hover {
+  color: #05c6c5 !important;
+  text-shadow: 0 0 12px rgba(5, 198, 197, 0.6);
+}
+
+/* Subtle glowing underline slide effect on hover */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #00ff87, #05c6c5);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ─── Premium Buttons with Hover-Up Animations ─── */
+.btn-primary-glow {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+  box-shadow: 0 4px 14px rgba(5, 198, 197, 0.2);
+}
+
+.btn-primary-glow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(5, 198, 197, 0.5);
+}
+
+.btn-primary-glow:active {
+  transform: translateY(-2px);
+}
+
+.btn-secondary-glow {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-secondary-glow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(5, 198, 197, 0.15);
+}
+
+.btn-secondary-glow:active {
+  transform: translateY(-2px);
+}
+
+/* ─── Vision Icon Animated Floating & Glowing ─── */
+@keyframes float-hologram {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
+
+@keyframes pulse-halo {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.2;
+    filter: blur(20px);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+    opacity: 0.45;
+    filter: blur(35px);
+  }
+}
+
+.vision-glow-halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(5, 198, 197, 0.4) 0%, transparent 70%);
+  animation: pulse-halo 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.vision-animated-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Animated SVG Eye Vision Icon ─── */
+.vision-svg {
+  animation: float-hologram 6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes svg-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes svg-rotate-reverse {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes svg-pulse-scale {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: scale(1.06);
+    opacity: 0.6;
+  }
+}
+
+@keyframes svg-core-glow {
+
+  0%,
+  100% {
+    fill: #05c6c5;
+    filter: drop-shadow(0 0 4px #05c6c5);
+  }
+
+  50% {
+    fill: #00ff87;
+    filter: drop-shadow(0 0 12px #00ff87);
+  }
+}
+
+.vision-svg-orbit {
+  transform-origin: 100px 100px;
+  animation: svg-rotate 25s linear infinite;
+}
+
+.vision-svg-orbit-reverse {
+  transform-origin: 100px 100px;
+  animation: svg-rotate-reverse 15s linear infinite;
+}
+
+.vision-svg-pulse {
+  transform-origin: 100px 100px;
+  animation: svg-pulse-scale 4s ease-in-out infinite;
+}
+
+@keyframes svg-pulse-scale-fast {
+
+  0%,
+  100% {
+    transform: scale(0.97);
+    opacity: 0.4;
+  }
+
+  50% {
+    transform: scale(1.03);
+    opacity: 0.7;
+  }
+}
+
+.vision-svg-pulse-fast {
+  transform-origin: 100px 100px;
+  animation: svg-pulse-scale-fast 2.5s ease-in-out infinite;
+}
+
+.vision-svg-iris {
+  transform-origin: 100px 100px;
+  animation: svg-rotate 40s linear infinite;
+}
+
+.vision-svg-aperture {
+  transform-origin: 100px 100px;
+  animation: svg-rotate-reverse 35s linear infinite;
+}
+
+.vision-svg-pupil {
+  animation: svg-core-glow 3s ease-in-out infinite;
+}
+
+.vision-card:hover .vision-svg {
+  transform: scale(1.08) translateY(-8px);
+  filter: drop-shadow(0 0 25px rgba(5, 198, 197, 0.4));
+  transition: all 0.4s ease;
+}
+
+/* ─── Animated Mission Network Processor Core SVG ─── */
+.mission-svg-outer-ring {
+  transform-origin: 100px 100px;
+  animation: svg-rotate 28s linear infinite;
+}
+
+.mission-svg-inner-ring-reverse {
+  transform-origin: 100px 100px;
+  animation: svg-rotate-reverse 18s linear infinite;
+}
+
+.mission-svg-core-rotate {
+  transform-origin: 100px 100px;
+  animation: svg-rotate 35s linear infinite;
+}
+
+@keyframes svg-pulse-mission-core {
+
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.04);
+    opacity: 0.9;
+  }
+}
+
+.mission-svg-core-pulse {
+  transform-origin: 100px 100px;
+  animation: svg-pulse-mission-core 4.5s ease-in-out infinite;
+}
+
+.mission-svg-core-pulse-fast {
+  transform-origin: 100px 100px;
+  animation: svg-pulse-scale-fast 3s ease-in-out infinite;
+}
+
+@keyframes svg-node-glow {
+
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.7;
+    filter: drop-shadow(0 0 2px #00ff87);
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+    filter: drop-shadow(0 0 8px #00ff87);
+  }
+}
+
+.mission-svg-node-pulse {
+  transform-origin: center;
+  animation: svg-node-glow 3.5s ease-in-out infinite;
+}
+
+/* ─── Mission Arrow Converge Animations ─── */
+@keyframes arrow-converge-n {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  45% {
+    transform: translateY(6px);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+
+  55% {
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateY(-10px);
+    opacity: 0.4;
+  }
+}
+
+@keyframes arrow-converge-s {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  45% {
+    transform: translateY(-6px);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+
+  55% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateY(10px);
+    opacity: 0.4;
+  }
+}
+
+@keyframes arrow-converge-e {
+
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  45% {
+    transform: translateX(-6px);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translateX(-8px);
+    opacity: 0;
+  }
+
+  55% {
+    transform: translateX(12px);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateX(10px);
+    opacity: 0.4;
+  }
+}
+
+@keyframes arrow-converge-w {
+
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  45% {
+    transform: translateX(6px);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translateX(8px);
+    opacity: 0;
+  }
+
+  55% {
+    transform: translateX(-12px);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateX(-10px);
+    opacity: 0.4;
+  }
+}
+
+.ms-arrow-n {
+  transform-origin: 100px 60px;
+  animation: arrow-converge-n 3.5s ease-in-out infinite;
+}
+
+.ms-arrow-s {
+  transform-origin: 100px 140px;
+  animation: arrow-converge-s 3.5s ease-in-out infinite 0.4s;
+}
+
+.ms-arrow-e {
+  transform-origin: 140px 100px;
+  animation: arrow-converge-e 3.5s ease-in-out infinite 0.8s;
+}
+
+.ms-arrow-w {
+  transform-origin: 60px 100px;
+  animation: arrow-converge-w 3.5s ease-in-out infinite 1.2s;
+}
+
+/* ─── Cinematic Pinned Services Showcase Section ─────────── */
+.logo-stack-section {
+  position: relative;
+  background-color: #000000;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-stack-svg {
+  will-change: transform, opacity;
+}
+
+.services-title {
+  position: absolute;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #ffffff;
+  text-shadow: 0 0 25px rgba(5, 198, 197, 0.4);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 30;
+}
+
+
+
+/* Enable pointer events when active */
+.services-grid-container.interactive {
+  pointer-events: auto;
+}
+
+.service-card-new {
+  background: rgba(12, 8, 23, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 2.2rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.service-card-new:hover {
+  border-color: rgba(5, 198, 197, 0.3);
+  box-shadow: 0 12px 40px rgba(5, 198, 197, 0.08);
+  transform: translateY(-6px);
+}
+
+.service-card-icon-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: rgba(5, 198, 197, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(5, 198, 197, 0.2);
+}
+
+.service-card-icon-wrapper svg {
+  color: #00f2fe;
+}
+
+@media (max-width: 1024px) {
+  .services-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    width: 90%;
+  }
+}
+
+@media (max-width: 640px) {
+  .services-grid-container {
+    grid-template-columns: 1fr;
+    width: 90%;
+  }
+
+  .services-title {
+    font-size: 2.5rem !important;
+  }
+}
+
+/* ─── Services Section Thunder Background ──────────────────── */
+
+/* Paint the GSAP pin-spacer so white body never bleeds through */
+.logo-stack-section,
+.gsap-pin-spacer:has(> .logo-stack-section) {
+  background-color: #03000a;
+}
+
+.gsap-pin-spacer:has(> #industries-section),
+.gsap-pin-spacer:has(.ind-orbit-pin) {
+  background: linear-gradient(180deg, #f4fbfb 0%, #ffffff 50%, #f5fcfb 100%);
+}
+
+.gsap-pin-spacer:has(> #process-section) {
+  background-color: #03000a;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Our Approach — Process Section (scroll-pinned)
+   ═══════════════════════════════════════════════════════════════ */
+
+.process-section {
+  background: #03000a;
+  color: #ffffff;
+}
+
+.process-glow {
+  position: absolute;
+  width: min(50vw, 420px);
+  height: min(50vw, 420px);
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.process-glow--tl {
+  top: 10%;
+  left: -10%;
+  background: rgba(5, 198, 197, 0.12);
+}
+
+.process-glow--br {
+  bottom: 5%;
+  right: -8%;
+  background: rgba(2, 132, 199, 0.1);
+}
+
+.process-svg-wrap {
+  min-height: 280px;
+}
+
+.process-svg-3d-scene {
+  perspective: 1000px;
+  perspective-origin: 50% 45%;
+}
+
+.process-svg-shadow {
+  position: absolute;
+  width: 70%;
+  height: 18%;
+  bottom: 8%;
+  left: 15%;
+  background: radial-gradient(ellipse, rgba(5, 198, 197, 0.25) 0%, transparent 70%);
+  filter: blur(20px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.process-svg {
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 20px 40px rgba(5, 198, 197, 0.15));
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.process-visual {
+  opacity: 0;
+  transform-origin: 200px 200px;
+  pointer-events: none;
+  transform-box: fill-box;
+}
+
+.process-visual--1 {
+  opacity: 1;
+}
+
+.process-visual .proc-draw,
+.process-visual .proc-ring,
+.process-visual .proc-orbit {
+  transform-origin: center;
+}
+
+.proc-iso-block,
+.proc-iso-layer,
+.proc-iso-bar {
+  transform-origin: center;
+}
+
+.proc-sphere {
+  animation: proc-sphere-float 4s ease-in-out infinite;
+}
+
+@keyframes proc-sphere-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.proc-platform {
+  opacity: 0.6;
+}
+
+/* Right steps */
+.process-steps {
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+@media (min-width: 768px) {
+  .process-steps {
+    padding-left: 2rem;
+  }
+}
+
+.process-step {
+  padding: 1.25rem 0 1.25rem 1.25rem;
+  border-left: 2px solid transparent;
+  opacity: 0.35;
+  transform: translateY(12px);
+  transition: opacity 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+}
+
+.process-step.is-active {
+  opacity: 1;
+  border-left-color: #05c6c5;
+  transform: translateY(0);
+}
+
+.process-step-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #05c6c5;
+  margin-bottom: 0.35rem;
+}
+
+.process-step-title {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+
+.process-step-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  max-width: 36ch;
+}
+
+.process-progress-fill {
+  border-radius: 2px;
+  transition: height 0.2s ease;
+}
+
+@media (max-width: 767px) {
+  .process-step {
+    padding-left: 0;
+    border-left: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .process-step.is-active {
+    border-left: none;
+    border-bottom-color: rgba(5, 198, 197, 0.35);
+  }
+
+  .process-visual {
+    transform: scale(0.85);
+    transform-origin: center;
+  }
+}
+
+/* ─── Why Choose / Industries — tinted bg + side color animation ─── */
+.why-choose-us-section,
+#industries-section {
+  min-height: auto;
+  background: linear-gradient(90deg,
+      rgba(2, 132, 199, 0.06) 0%,
+      #f8fffe 12%,
+      #ffffff 50%,
+      #f8fffe 88%,
+      rgba(5, 198, 197, 0.06) 100%);
+}
+
+.section-side-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.section-side-glow {
+  position: absolute;
+  top: 5%;
+  bottom: 5%;
+  width: min(38vw, 320px);
+  border-radius: 50%;
+  filter: blur(72px);
+  opacity: 0.7;
+  animation: section-side-drift 9s ease-in-out infinite;
+}
+
+.section-side-glow--left {
+  left: max(-12%, -80px);
+}
+
+.section-side-glow--right {
+  right: max(-12%, -80px);
+  animation-delay: -4.5s;
+}
+
+.section-side-glow--blue {
+  background: radial-gradient(ellipse at center,
+      rgba(2, 132, 199, 0.35) 0%,
+      rgba(37, 99, 235, 0.18) 45%,
+      transparent 72%);
+}
+
+.section-side-glow--teal {
+  background: radial-gradient(ellipse at center,
+      rgba(5, 198, 197, 0.38) 0%,
+      rgba(5, 150, 105, 0.16) 45%,
+      transparent 72%);
+}
+
+@keyframes section-side-drift {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translateY(6%) scale(1.1);
+    opacity: 0.82;
+  }
+}
+
+/* ─── Section canvas backgrounds ─── */
+.section-canvas-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.section-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Full-cover container */
+.svc-thunder-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+
+}
+
+/* Animated gradient mesh — colour cycling */
+@keyframes svc-mesh-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.svc-grad-mesh {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+      #03000a 0%,
+      #050d12 15%,
+      rgba(0, 242, 254, 0.07) 30%,
+      rgba(5, 198, 197, 0.05) 45%,
+      rgba(0, 255, 135, 0.06) 60%,
+      rgba(79, 172, 254, 0.05) 75%,
+      #03000a 100%);
+  background-size: 300% 300%;
+  animation: svc-mesh-shift 8s ease infinite;
+}
+
+/* Floating energy orbs */
+.svc-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  mix-blend-mode: screen;
+}
+
+@keyframes svc-orb-drift-1 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.18;
+  }
+
+  33% {
+    transform: translate(60px, -40px) scale(1.15);
+    opacity: 0.28;
+  }
+
+  66% {
+    transform: translate(-40px, 30px) scale(0.9);
+    opacity: 0.14;
+  }
+}
+
+@keyframes svc-orb-drift-2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.15;
+  }
+
+  40% {
+    transform: translate(-70px, 50px) scale(1.2);
+    opacity: 0.25;
+  }
+
+  80% {
+    transform: translate(50px, -30px) scale(0.85);
+    opacity: 0.12;
+  }
+}
+
+@keyframes svc-orb-drift-3 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: translate(80px, 60px) scale(1.1);
+    opacity: 0.32;
+  }
+}
+
+@keyframes svc-orb-drift-4 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.12;
+  }
+
+  45% {
+    transform: translate(-60px, -50px) scale(1.25);
+    opacity: 0.22;
+  }
+}
+
+.svc-orb-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #00f2fe 0%, transparent 70%);
+  top: -150px;
+  left: -100px;
+  animation: svc-orb-drift-1 12s ease-in-out infinite;
+}
+
+.svc-orb-2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #00ff87 0%, transparent 70%);
+  bottom: -100px;
+  right: 10%;
+  animation: svc-orb-drift-2 15s ease-in-out infinite;
+}
+
+.svc-orb-3 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, #05c6c5 0%, transparent 70%);
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: svc-orb-drift-3 10s ease-in-out infinite;
+}
+
+.svc-orb-4 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #4facfe 0%, transparent 70%);
+  top: 10%;
+  right: -80px;
+  animation: svc-orb-drift-4 18s ease-in-out infinite;
+}
+
+/* Arc SVG full-cover */
+.svc-arc-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.25;
+}
+
+/* Lightning bolt flash animations */
+@keyframes svc-bolt-flash {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  2% {
+    opacity: 0.9;
+  }
+
+  4% {
+    opacity: 0.3;
+  }
+
+  6% {
+    opacity: 0.8;
+  }
+
+  8% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  52% {
+    opacity: 0.7;
+  }
+
+  54% {
+    opacity: 0;
+  }
+}
+
+@keyframes svc-bolt-flash-2 {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  14% {
+    opacity: 0.4;
+  }
+
+  16% {
+    opacity: 0.9;
+  }
+
+  18% {
+    opacity: 0;
+  }
+
+  70% {
+    opacity: 0;
+  }
+
+  72% {
+    opacity: 0.8;
+  }
+
+  74% {
+    opacity: 0;
+  }
+}
+
+@keyframes svc-bolt-flash-3 {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0;
+  }
+
+  27% {
+    opacity: 0.85;
+  }
+
+  29% {
+    opacity: 0.2;
+  }
+
+  31% {
+    opacity: 0.75;
+  }
+
+  33% {
+    opacity: 0;
+  }
+
+  80% {
+    opacity: 0;
+  }
+
+  82% {
+    opacity: 0.6;
+  }
+
+  84% {
+    opacity: 0;
+  }
+}
+
+.svc-bolt-1,
+.svc-bolt-1-fat {
+  animation: svc-bolt-flash 6s linear infinite;
+}
+
+.svc-bolt-2,
+.svc-bolt-2-fat {
+  animation: svc-bolt-flash-2 7s linear infinite 1s;
+}
+
+.svc-bolt-3,
+.svc-bolt-3-fat {
+  animation: svc-bolt-flash-3 8s linear infinite 2s;
+}
+
+/* Horizontal arc sweep animation */
+@keyframes svc-arc-sweep {
+  0% {
+    stroke-dashoffset: 500;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.5;
+  }
+
+  90% {
+    opacity: 0.4;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+.svc-arc-h1 {
+  animation: svc-arc-sweep 5s linear infinite;
+}
+
+.svc-arc-h2 {
+  animation: svc-arc-sweep 6s linear infinite 2s;
+}
+
+/* Spark pulse animations */
+@keyframes svc-spark-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.svc-spark {
+  animation: svc-spark-pulse 2s ease-out infinite;
+}
+
+.svc-spark-1 {
+  animation-delay: 0s;
+}
+
+.svc-spark-2 {
+  animation-delay: 0.8s;
+}
+
+.svc-spark-3 {
+  animation-delay: 1.6s;
+}
+
+.svc-spark-4 {
+  animation-delay: 2.4s;
+}
+
+.svc-spark-5 {
+  animation-delay: 3.2s;
+}
+
+/* Subtle scanline texture overlay */
+.svc-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 242, 254, 0.012) 2px,
+      rgba(0, 242, 254, 0.012) 4px);
+  pointer-events: none;
+}
+
+/* Animated Bullet Point SVG Classes */
+.bullet-ring-rotate {
+  transform-origin: center;
+  animation: bulletRingRotate 6s linear infinite;
+}
+
+.bullet-ring-rotate-rev {
+  transform-origin: center;
+  animation: bulletRingRotateRev 5s linear infinite;
+}
+
+.bullet-core-pulse {
+  transform-origin: center;
+  animation: bulletCorePulse 2s ease-in-out infinite;
+}
+
+@keyframes bulletRingRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bulletRingRotateRev {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes bulletCorePulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(0.85);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/* Responsive Main Service SVG Sizing */
+.ai-dev-neural-svg,
+.startup-growth-svg,
+.data-collection-svg,
+.data-analysis-svg,
+.data-visualization-svg,
+.it-consulting-svg,
+.innovation-research-svg,
+.data-hosting-svg,
+.data-classification-svg,
+.data-entry-svg {
+  width: 260px !important;
+  height: 260px !important;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+@media (min-width: 768px) {
+
+  .ai-dev-neural-svg,
+  .startup-growth-svg,
+  .data-collection-svg,
+  .data-analysis-svg,
+  .data-visualization-svg,
+  .it-consulting-svg,
+  .innovation-research-svg,
+  .data-hosting-svg,
+  .data-classification-svg,
+  .data-entry-svg {
+    width: 290px !important;
+    height: 290px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .ai-dev-neural-svg,
+  .startup-growth-svg,
+  .data-collection-svg,
+  .data-analysis-svg,
+  .data-visualization-svg,
+  .it-consulting-svg,
+  .innovation-research-svg,
+  .data-hosting-svg,
+  .data-classification-svg,
+  .data-entry-svg {
+    width: 320px !important;
+    height: 320px !important;
+  }
+}
+
+/* ─── Why Choose Us: Heading-only Timeline ──────────────────────────────────── */
+
+/* Base heading style — clean black, Manrope, bold */
+.why-heading {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin: 0;
+  position: relative;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Left-side items (odd): right-align, gradient left-to-right on hover */
+.why-item:nth-child(odd) .why-heading {
+  text-align: right;
+}
+
+/* Right-side items (even): left-align */
+.why-item:nth-child(even) .why-heading {
+  text-align: left;
+}
+
+/* Number prefix styling — slightly smaller, teal/blue accent */
+.why-heading::before {
+  font-size: 0.7em;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  opacity: 0.4;
+  margin-right: 0.2em;
+  vertical-align: middle;
+}
+
+.why-heading {
+  transition: color 0.3s ease;
+}
+
+/* Hover: teal text only — no underline / border */
+.why-item:hover .why-heading {
+  color: #05c6c5;
+}
+
+/* Node dot — scale up on parent hover (no border change) */
+.why-item:hover .why-node-dot {
+  transform: scale(1.4);
+  box-shadow: 0 0 14px rgba(5, 198, 197, 0.4);
+  border-color: #e2e8f0;
+}
+
+/* Connect line — brighten on parent hover */
+.why-item:hover .why-connect-line {
+  opacity: 1;
+  filter: brightness(1.4);
+}
+
+/* Mobile: always left-align */
+@media (max-width: 767px) {
+  .why-heading {
+    text-align: left !important;
+    font-size: 1.1rem;
+  }
+}
+
+/* ─── Timeline Custom SVGs Animation Styles ─── */
+
+.why-icon {
+  display: inline-block;
+  vertical-align: middle;
+  filter: drop-shadow(0 0 2px rgba(5, 198, 197, 0.12));
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
+  color: #05c6c5;
+}
+
+/* Icon hover transforms */
+.why-item:hover .why-icon {
+  transform: scale(1.15);
+  color: #05c6c5;
+}
+
+/* 1. Neural Net brain pathways */
+.why-svg-pulse {
+  transform-origin: center;
+  transition: stroke-dasharray 0.4s ease;
+}
+
+.why-item:hover .why-svg-pulse {
+  animation: why-neural-pulse 2s ease-in-out infinite;
+}
+
+@keyframes why-neural-pulse {
+
+  0%,
+  100% {
+    opacity: 0.7;
+    stroke-width: 2px;
+  }
+
+  50% {
+    opacity: 1;
+    stroke-width: 2.5px;
+  }
+}
+
+.why-icon-pulse-core {
+  transform-origin: 12px 5px;
+}
+
+.why-item:hover .why-icon-pulse-core {
+  animation: why-core-glow-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes why-core-glow-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+    fill: #059669;
+  }
+}
+
+/* 2. Gears rotation */
+@keyframes why-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.why-icon-rotate {
+  transform-origin: 12px 12px;
+}
+
+.why-item:hover .why-icon-rotate {
+  animation: why-spin 6s linear infinite;
+}
+
+/* 3. Shield pulse & checkmark draw */
+.why-shield-pulse {
+  transform-origin: 12px 11px;
+}
+
+.why-item:hover .why-shield-pulse {
+  animation: why-shield-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes why-shield-glow {
+
+  0%,
+  100% {
+    stroke-width: 2;
+    opacity: 0.9;
+  }
+
+  50% {
+    stroke-width: 2.5;
+    opacity: 1;
+    filter: drop-shadow(0 0 4px rgba(5, 150, 105, 0.3));
+  }
+}
+
+.why-check-draw {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.why-item:hover .why-check-draw {
+  stroke-dashoffset: 0;
+}
+
+/* 4. Data bars & trendline draw */
+.why-bar-1,
+.why-bar-2,
+.why-bar-3 {
+  transform-origin: bottom;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.why-item:hover .why-bar-1 {
+  transform: scaleY(1.2);
+}
+
+.why-item:hover .why-bar-2 {
+  transform: scaleY(1.25);
+}
+
+.why-item:hover .why-bar-3 {
+  transform: scaleY(1.3);
+}
+
+.why-trend-draw {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset 0.8s ease-in-out;
+}
+
+.why-item:hover .why-trend-draw {
+  stroke-dashoffset: 0;
+}
+
+/* 5. Bulb glow & filament vibration */
+.why-bulb-glow {
+  transition: filter 0.3s ease, fill 0.3s ease;
+}
+
+.why-item:hover .why-bulb-glow {
+  filter: drop-shadow(0 0 4px rgba(5, 150, 105, 0.4));
+  fill: rgba(5, 150, 105, 0.05);
+}
+
+.why-bulb-filament {
+  transform-origin: center;
+}
+
+.why-item:hover .why-bulb-filament {
+  animation: why-vibrate 0.3s linear infinite;
+}
+
+@keyframes why-vibrate {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(0.3px, -0.3px);
+  }
+
+  75% {
+    transform: translate(-0.3px, 0.3px);
+  }
+}
+
+.why-ray-1 {
+  transition: opacity 0.3s ease, stroke-width 0.3s ease;
+}
+
+.why-item:hover .why-ray-1 {
+  opacity: 1;
+  stroke-width: 2.5px;
+}
+
+/* 6. Digital transformation spin */
+.why-spin-clockwise {
+  transform-origin: 12px 12px;
+}
+
+.why-item:hover .why-spin-clockwise {
+  animation: why-spin 4s linear infinite;
+}
+
+/* 7. Enterprise servers flashing */
+.why-server-1,
+.why-server-2,
+.why-server-3 {
+  transition: stroke 0.3s ease, fill 0.3s ease;
+}
+
+.why-item:hover .why-server-1 {
+  stroke: #059669;
+  fill: rgba(5, 150, 105, 0.03);
+}
+
+.why-item:hover .why-server-2 {
+  stroke: #10b981;
+  fill: rgba(16, 185, 129, 0.03);
+  transition-delay: 0.1s;
+}
+
+.why-item:hover .why-server-3 {
+  stroke: #34d399;
+  fill: rgba(52, 211, 153, 0.03);
+  transition-delay: 0.2s;
+}
+
+.why-server-dot {
+  animation: none;
+}
+
+.why-item:hover .why-server-dot {
+  animation: why-blink 1s steps(2, start) infinite;
+}
+
+@keyframes why-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* 8. Global globe longitudinal rotation & location beacon pulse */
+.why-globe-spin {
+  transform-origin: 12px 12px;
+  transition: transform 0.6s ease;
+}
+
+.why-item:hover .why-globe-spin {
+  transform: scaleX(1.1) rotate(5deg);
+}
+
+.why-beacon-pulse {
+  transform-origin: 12px 12px;
+}
+
+.why-item:hover .why-beacon-pulse {
+  animation: why-beacon-glow 1.2s ease-in-out infinite;
+}
+
+@keyframes why-beacon-glow {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+    fill: #059669;
+  }
+}
+
+/* 10. Post-launch support ripple */
+.why-support-pulse {
+  transform-origin: 12px 12px;
+}
+
+.why-item:hover .why-support-pulse {
+  animation: why-support-ripple 2s infinite;
+}
+
+@keyframes why-support-ripple {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.25);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Industries We Serve – Radial Orbital Hub
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 3D Orbit Scene ── */
+.ind-orbit-3d-scene {
+  perspective: 1100px;
+  perspective-origin: 50% 42%;
+}
+
+.ind-orbit-wrap {
+  aspect-ratio: 1;
+  max-height: min(82vw, 640px);
+  margin-inline: auto;
+  transform-style: preserve-3d;
+  /* rotateX set by GSAP for mouse parallax + base tilt */
+}
+
+.ind-orbit-pin {
+  width: 100%;
+}
+
+.ind-orbit-floor {
+  transform-origin: 50px 54px;
+  animation: ind-orbit-floor-spin 24s linear infinite;
+}
+
+.ind-orbit-floor--inner {
+  animation-direction: reverse;
+  animation-duration: 32s;
+}
+
+@keyframes ind-orbit-floor-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Central Hub (sits above stacked industry icons) ── */
+.ind-hub {
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  isolation: isolate;
+}
+
+.ind-hub-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(5, 198, 197, 0.15);
+  pointer-events: none;
+}
+
+.ind-hub-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #f0fdf4, #e0f7f5, #f0fdfa);
+  border: 1.5px solid rgba(5, 198, 197, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-shadow:
+    0 0 40px rgba(5, 198, 197, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.4s ease;
+}
+
+.ind-hub-3d {
+  transform-style: preserve-3d;
+}
+
+.ind-hub-ring--3d {
+  inset: -10px;
+  border-width: 3px;
+  border-color: rgba(5, 198, 197, 0.22);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+    0 12px 28px rgba(5, 198, 197, 0.12);
+  transform: translateZ(8px);
+}
+
+.ind-hub-inner--3d {
+  background: linear-gradient(155deg, #ffffff 0%, #eefcfb 38%, #d8f6f5 72%, #c5efee 100%);
+  box-shadow:
+    0 22px 44px rgba(5, 198, 197, 0.18),
+    0 8px 20px rgba(15, 23, 42, 0.08),
+    inset 0 3px 6px rgba(255, 255, 255, 0.95),
+    inset 0 -6px 14px rgba(5, 198, 197, 0.12);
+  transform: translateZ(16px);
+}
+
+.ind-hub-inner--3d::before {
+  content: '';
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.85) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.ind-hub-inner:hover,
+.ind-hub-inner--3d:hover {
+  box-shadow:
+    0 28px 52px rgba(5, 198, 197, 0.22),
+    0 12px 28px rgba(15, 23, 42, 0.1),
+    inset 0 3px 6px rgba(255, 255, 255, 0.95),
+    inset 0 -6px 14px rgba(5, 198, 197, 0.14);
+}
+
+.ind-hub-sub {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.ind-hub-title {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #0f172a;
+}
+
+/* ── Orbital Items ── */
+.ind-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  cursor: pointer;
+  z-index: 10;
+  transition: filter 0.35s ease;
+}
+
+/* Initial load only — icons stacked at center before GSAP runs */
+@media (min-width: 768px) {
+  .ind-orbit-wrap.ind-orbit-preload .ind-item {
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) scale(0.7) !important;
+    z-index: 1 !important;
+  }
+
+  .ind-orbit-wrap.ind-orbit-preload .ind-label,
+  .ind-orbit-wrap.ind-orbit-preload .ind-connectors {
+    opacity: 0 !important;
+    visibility: hidden;
+  }
+
+  .ind-orbit-wrap.ind-orbit-preload .ind-hub {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+}
+
+/* Stacked behind hub during GSAP spread */
+.ind-orbit-wrap.ind-items-behind-hub .ind-item {
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── Icon Wrapper (holds arc ring + icon) ── */
+.ind-icon-wrap {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  flex-shrink: 0;
+  transform-style: preserve-3d;
+  filter: url(#ind-icon-shadow);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ind-item:hover .ind-icon-wrap {
+  transform: translateZ(18px) scale(1.06);
+}
+
+/* Partial Arc Ring Decoration — continuous rotation */
+.ind-arc-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  animation: indArcSpin 20s linear infinite;
+}
+
+.ind-arc-ring circle {
+  fill: none;
+  stroke: #05c6c5;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+@keyframes indArcSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Inner Icon Circle — 3D sphere look */
+.ind-icon-inner {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ffffff 0%, #f4fbfb 45%, #e5f7f6 100%);
+  border: 1.5px solid rgba(5, 198, 197, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  overflow: hidden;
+  transform: translateZ(12px);
+  box-shadow:
+    0 14px 28px rgba(15, 23, 42, 0.14),
+    0 5px 12px rgba(5, 198, 197, 0.16),
+    inset 0 2px 4px rgba(255, 255, 255, 1),
+    inset 0 -4px 10px rgba(5, 198, 197, 0.1);
+}
+
+.ind-icon-inner::after {
+  content: '';
+  position: absolute;
+  top: 6%;
+  left: 12%;
+  width: 45%;
+  height: 32%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.9) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ind-icon-inner svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Labels ── */
+.ind-label {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #334155;
+  text-align: center;
+  max-width: 150px;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 2px 6px;
+  border-radius: 4px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Connector Lines ── */
+.ind-connectors .ind-line {
+  transition: opacity 0.3s ease;
+}
+
+/* Disable 3D tilt on mobile grid */
+@media (max-width: 767px) {
+  .ind-orbit-3d-scene {
+    perspective: none;
+  }
+
+  .ind-orbit-wrap {
+    transform: none;
+  }
+
+  .ind-icon-wrap {
+    filter: none;
+  }
+
+  .ind-icon-inner {
+    transform: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .ind-orbit-floor {
+    display: none;
+  }
+}
+
+/* ── Mobile Responsive Grid ── */
+@media (max-width: 767px) {
+  .ind-orbit-wrap {
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem 1rem;
+    padding: 1rem 0;
+  }
+
+  .ind-hub,
+  .ind-connectors {
+    display: none;
+  }
+
+  .ind-item {
+    position: static !important;
+    transform: none !important;
+  }
+
+  .ind-icon-wrap {
+    width: 78px;
+    height: 78px;
+  }
+
+  .ind-icon-inner {
+    inset: 6px;
+    padding: 12px;
+  }
+
+  .ind-label {
+    font-size: 0.72rem;
+    max-width: 90px;
+  }
+}
