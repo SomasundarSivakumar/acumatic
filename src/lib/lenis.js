@@ -15,7 +15,7 @@ export function initLenis() {
     wheelMultiplier: 1.2, // Fast wheel scrolling feel
     touchMultiplier: 1.5, // Standard responsive touch feel
     infinite: false,
-    autoRaf: true, // Let Lenis drive its own single high-performance RAF loop
+    autoRaf: false, // Driven by GSAP Ticker for perfect synchronization
   })
 
   return lenis

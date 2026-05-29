@@ -2,26 +2,34 @@ import './style.css'
 import { initLenis } from './lib/lenis.js'
 import { initGSAP, gsap, ScrollTrigger } from './lib/gsap.js'
 import { initSectionCanvases } from './lib/sectionCanvas.js'
+import { initAISynapseCanvas } from './lib/aiSynapseCanvas.js'
 
 // Bootstrap smooth scrolling & sync with GSAP ScrollTrigger
 const lenis = initLenis()
 initGSAP(lenis)
 initSectionCanvases()
 
+// Bootstrap animated AI Synaptic Web background in the contact us section
+const aiSynapseCanvas = document.querySelector('#ai-synapse-canvas')
+if (aiSynapseCanvas) {
+  initAISynapseCanvas(aiSynapseCanvas)
+}
+
 // CTA Banner — entrance animation
-const ctaBannerSection = document.querySelector('#cta-banner')
-if (ctaBannerSection) {
+const ctaInner = document.querySelector('.cta-banner-inner')
+if (ctaInner) {
   gsap
     .timeline({
       scrollTrigger: {
-        trigger: ctaBannerSection,
-        start: 'top 80%',
+        trigger: ctaInner,
+        start: 'top 88%',
         toggleActions: 'play none none reverse',
       },
     })
-    .to('.cta-banner-title', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' })
-    .to('.cta-banner-desc', { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out' }, '-=0.55')
-    .to('.cta-banner-btn', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
+    .from('.cta-banner-badge', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out' })
+    .from('.cta-banner-title', { opacity: 0, y: 30, duration: 0.9, ease: 'power3.out' }, '-=0.65')
+    .from('.cta-banner-desc', { opacity: 0, y: 25, duration: 0.85, ease: 'power3.out' }, '-=0.6')
+    .from('.cta-banner-btn', { opacity: 0, y: 20, scale: 0.98, duration: 0.8, ease: 'power3.out' }, '-=0.55')
 }
 
 // ─── Header Scroll Background Toggle + Hide on Scroll Down ───────────────────
@@ -78,11 +86,9 @@ lenis.on('scroll', ({ scroll }) => {
 // 1. Hero Reveal Timelines
 const heroTl = gsap.timeline({ defaults: { ease: 'power4.out' } })
 heroTl
-  .from('.hero-badge', { opacity: 0, y: -20, duration: 1, delay: 0.2 })
-  .from('.hero-title span', { y: '100%', duration: 1.2, stagger: 0.1 }, '-=0.8')
+  .from('.hero-title', { opacity: 0, y: 30, duration: 1.2, delay: 0.2 })
   .from('.hero-desc', { opacity: 0, y: 20, duration: 1 }, '-=0.8')
-  .from('.hero-cta', { opacity: 0, scale: 0.95, duration: 0.8, stagger: 0.1 }, '-=0.6')
-  .from('.hero-glow', { opacity: 0, duration: 2, scale: 0.8 }, '-=1.2')
+  .from('.hero-cta', { opacity: 0, y: 15, scale: 0.98, duration: 0.8, stagger: 0.1 }, '-=0.6')
 
 // 2. ScrollTrigger: Card Revelations (Staggered Fade & Slide In)
 gsap.from('.feature-card', {
@@ -1047,3 +1053,126 @@ if (processSection) {
   })
   }
 }
+
+// ─── ScrollTrigger: About Us column entrances ────────────────────────────────
+gsap.from('.about-content-left', {
+  scrollTrigger: {
+    trigger: '.about-section',
+    start: 'top 75%',
+    toggleActions: 'play none none reverse',
+  },
+  opacity: 0,
+  x: -60,
+  duration: 1.2,
+  ease: 'power3.out',
+})
+
+gsap.from('.about-image-right', {
+  scrollTrigger: {
+    trigger: '.about-section',
+    start: 'top 75%',
+    toggleActions: 'play none none reverse',
+  },
+  opacity: 0,
+  x: 60,
+  duration: 1.2,
+  ease: 'power3.out',
+})
+
+// ─── ScrollTrigger: Vision column entrances ──────────────────────────────────
+gsap.from('.vision-content-right', {
+  scrollTrigger: {
+    trigger: '#vision',
+    start: 'top 75%',
+    toggleActions: 'play none none reverse',
+  },
+  opacity: 0,
+  x: 60,
+  duration: 1.2,
+  ease: 'power3.out',
+})
+
+gsap.from('.vision-graphic-left', {
+  scrollTrigger: {
+    trigger: '#vision',
+    start: 'top 75%',
+    toggleActions: 'play none none reverse',
+  },
+  opacity: 0,
+  x: -60,
+  duration: 1.2,
+  ease: 'power3.out',
+})
+
+// ─── ScrollTrigger: Mission column entrances ──────────────────────────────────
+gsap.from('.mission-content-left', {
+  scrollTrigger: {
+    trigger: '#mission',
+    start: 'top 75%',
+    toggleActions: 'play none none reverse',
+  },
+  opacity: 0,
+  x: -60,
+  duration: 1.2,
+  ease: 'power3.out',
+})
+
+gsap.from('.mission-graphic-right', {
+  scrollTrigger: {
+    trigger: '#mission',
+    start: 'top 75%',
+    toggleActions: 'play none none reverse',
+  },
+  opacity: 0,
+  x: 60,
+  duration: 1.2,
+  ease: 'power3.out',
+})
+
+// ─── ScrollTrigger: General Section Headings Reveal ──────────────────────────
+const revealHeadings = gsap.utils.toArray('.scroll-reveal-heading')
+revealHeadings.forEach((heading) => {
+  gsap.from(heading, {
+    scrollTrigger: {
+      trigger: heading,
+      start: 'top 85%',
+      toggleActions: 'play none none reverse',
+    },
+    opacity: 0,
+    y: 35,
+    duration: 1.0,
+    ease: 'power3.out',
+  })
+})
+
+// ─── ScrollTrigger: Contact Section columns slide-in ─────────────────────────
+gsap.from('.contact-cards-left', {
+  scrollTrigger: {
+    trigger: '#contact',
+    start: 'top 75%',
+    toggleActions: 'play none none reverse',
+  },
+  opacity: 0,
+  x: -60,
+  duration: 1.2,
+  ease: 'power3.out',
+})
+
+gsap.from('.contact-form-right', {
+  scrollTrigger: {
+    trigger: '#contact',
+    start: 'top 75%',
+    toggleActions: 'play none none reverse',
+  },
+  opacity: 0,
+  x: 60,
+  duration: 1.2,
+  ease: 'power3.out',
+})
+
+// Force ScrollTrigger to refresh all calculation coordinates once the layout is fully rendered
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    ScrollTrigger.refresh()
+  }, 150)
+})

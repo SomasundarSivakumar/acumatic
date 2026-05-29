@@ -166,12 +166,6 @@ body {
   background: rgba(2, 132, 199, 0.12);
 }
 
-.cta-banner-title,
-.cta-banner-desc,
-.cta-banner-btn {
-  opacity: 0;
-  transform: translateY(24px);
-}
 
 .cta-banner-btn {
   box-shadow: 0 4px 24px rgba(5, 198, 197, 0.4);
@@ -179,7 +173,7 @@ body {
 
 /* Custom Background Image */
 .bg-acumatic {
-  background-image: url('./assets/images/acumatic_bg.png');
+  background-image: url('./assets/images/acumatic_bg.webp');
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;

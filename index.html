@@ -8,6 +8,8 @@
   <meta name="description"
     content="Sleek, fast digital solutions powered by GSAP, Lenis Smooth Scroll, and Tailwind CSS v4." />
   <link rel="stylesheet" href="/src/style.css" />
+  <link rel="preload" as="image" href="./src/assets/images/acumatic_bg.webp" fetchpriority="high" type="image/webp" />
+  <link rel="preload" as="image" href="./src/assets/images/logo.webp" fetchpriority="high" type="image/webp" />
   <!-- Industries orbit: prevent icon flash before GSAP loads -->
   <style>
     @media (min-width: 768px) {
@@ -38,7 +40,7 @@
     <div class="mx-auto max-w-[85%]">
       <div class="flex justify-between items-center">
         <div class="w-40">
-          <img src="./src/assets/images/logo.png" alt="">
+          <img src="./src/assets/images/logo.webp" alt="">
         </div>
         <nav class="flex items-center gap-8">
           <a href="#home" class="nav-link">Home</a>
@@ -353,21 +355,21 @@
         </g>
       </svg>
       <div class="flex justify-center items-center flex-col h-full">
-        <div class="text-6xl font-medium tracking-wide leading-18 text-center">
+        <div class="hero-title text-6xl font-medium tracking-wide leading-18 text-center">
           Transforming Businesses with<br /> <span class="gradient-text">AI, Data & Intelligent Innovation</span>
         </div>
-        <div class="text-xl text-[#a8a5a2] w-[50%] mx-auto text-center mt-5">
+        <div class="hero-desc text-xl text-[#a8a5a2] w-[50%] mx-auto text-center mt-5">
           Acumatic FZE LLC helps enterprises, startups, and growing organizations unlock the power of Artificial
           Intelligence, data intelligence, and digital innovation through strategic consulting, AI development,
           analytics, and scalable technology solutions.
         </div>
         <div class="flex gap-4 mt-8">
           <button
-            class="btn-primary-glow bg-[#05c6c5] cursor-pointer text-black px-5 py-5 font-display text-sm font-medium">
+            class="hero-cta btn-primary-glow bg-[#05c6c5] cursor-pointer text-black px-5 py-5 font-display text-sm font-medium">
             Book a Consultation
           </button>
           <button
-            class="btn-secondary-glow border border-white cursor-pointer hover:border-[#05c6c5] duration-500 hover:text-[#05c6c5] text-white px-5 py-5 font-display text-sm font-medium">
+            class="hero-cta btn-secondary-glow border border-white cursor-pointer hover:border-[#05c6c5] duration-500 hover:text-[#05c6c5] text-white px-5 py-5 font-display text-sm font-medium">
             Explore Services
           </button>
         </div>
@@ -459,7 +461,7 @@
 
       <div class="mx-auto py-30 max-w-[85%] ">
         <div class="flex justify-between flex-wrap items-center w-full gap-10">
-          <div class="w-[calc(55%-1.25rem)] flex flex-col">
+          <div class="about-content-left w-[calc(55%-1.25rem)] flex flex-col">
             <div class="flex items-center gap-3">
               <div class="bg-[#05c6c5] w-2.5 h-2.5">
               </div>
@@ -467,7 +469,7 @@
                 about us
               </div>
             </div>
-            <div class="text-black text-5xl font-medium mt-5 leading-16">
+            <div class="scroll-reveal-heading text-black text-5xl font-medium mt-5 leading-16">
               Driving the Future with<br /> AI & Data Intelligence
             </div>
             <div class="text-lg mt-10 text-black/80 leading-7">
@@ -485,8 +487,8 @@
               processing systems, and enterprise technology advisory.
             </div>
           </div>
-          <div class="w-[calc(45%-1.25rem)]">
-            <img src="./src/assets/images/about_1.png" class="w-full h-full mt-34" alt="">
+          <div class="about-image-right w-[calc(45%-1.25rem)]">
+            <img src="./src/assets/images/about_1.webp" class="w-full h-full mt-34" alt="">
           </div>
         </div>
       </div>
@@ -500,7 +502,7 @@
         <div class="flex flex-row-reverse justify-between flex-wrap items-center w-full gap-10">
 
           <!-- Vision Right Column: Text Info -->
-          <div class="w-[calc(55%-1.25rem)] flex flex-col">
+          <div class="vision-content-right w-[calc(55%-1.25rem)] flex flex-col">
             <div class="flex items-center gap-3">
               <div class="bg-[#05c6c5] w-2.5 h-2.5">
               </div>
@@ -509,7 +511,7 @@
               </div>
             </div>
 
-            <div class="text-black text-4xl font-medium mt-5 leading-12">
+            <div class="scroll-reveal-heading text-black text-4xl font-medium mt-5 leading-12">
               To become a trusted global partner for AI innovation, intelligent data systems, and future-ready digital
               transformation.
             </div>
@@ -521,7 +523,7 @@
           </div>
 
           <!-- Vision Left Column: Animated SVG Eye Icon -->
-          <div class="w-[calc(45%-1.25rem)] flex justify-center items-center">
+          <div class="vision-graphic-left w-[calc(45%-1.25rem)] flex justify-center items-center">
             <div class="vision-animated-container w-80 h-80 relative flex justify-center items-center">
               <div class="vision-glow-halo"></div>
 
@@ -696,7 +698,7 @@
         <div class="flex justify-between flex-wrap items-center w-full gap-10">
 
           <!-- Mission Left Column: Text Info -->
-          <div class="w-[calc(55%-1.25rem)] flex flex-col">
+          <div class="mission-content-left w-[calc(55%-1.25rem)] flex flex-col">
             <div class="flex items-center gap-3">
               <div class="bg-[#05c6c5] w-2.5 h-2.5">
               </div>
@@ -705,14 +707,14 @@
               </div>
             </div>
 
-            <div class="text-black text-4xl font-medium mt-5 leading-12">
+            <div class="scroll-reveal-heading text-black text-4xl font-medium mt-5 leading-12">
               To empower businesses with practical AI solutions, strategic insights, and data-driven decision-making
               frameworks that create measurable impact.
             </div>
           </div>
 
           <!-- Mission Right Column: Animated SVG Icon on the right side -->
-          <div class="w-[calc(45%-1.25rem)] flex justify-center items-center">
+          <div class="mission-graphic-right w-[calc(45%-1.25rem)] flex justify-center items-center">
             <div class="vision-animated-container w-80 h-80 relative flex justify-center items-center">
               <div class="vision-glow-halo"></div>
 
@@ -3687,7 +3689,7 @@
           <div class="bg-[#05c6c5] w-2.5 h-2.5"></div>
           <div class="text-[#05c6c5] font-display font-medium text-lg tracking-wider uppercase">Why Choose Us</div>
         </div>
-        <h2 class="text-4xl text-center md:text-5xl font-medium text-black tracking-wide mb-8 md:mb-20">
+        <h2 class="scroll-reveal-heading text-4xl text-center md:text-5xl font-medium text-black tracking-wide mb-8 md:mb-20">
           Why Businesses Choose Acumatic
         </h2>
 
@@ -4085,7 +4087,7 @@
             <div class="bg-[#05c6c5] w-2.5 h-2.5"></div>
             <div class="text-[#05c6c5] font-display font-medium text-lg tracking-wider uppercase">Process</div>
           </div>
-          <h2 class="text-4xl md:text-5xl font-medium text-center text-white tracking-wide">Our Approach</h2>
+          <h2 class="scroll-reveal-heading text-4xl md:text-5xl font-medium text-center text-white tracking-wide">Our Approach</h2>
         </div>
 
         <div
@@ -4284,7 +4286,7 @@
           <div class="text-[#05c6c5] font-display font-medium text-lg tracking-wider uppercase">Industries we serve
           </div>
         </div>
-        <h2 class="text-4xl md:text-5xl mt-3 text-black font-medium text-center mb-6 md:mb-8">
+        <h2 class="scroll-reveal-heading text-4xl md:text-5xl mt-3 text-black font-medium text-center mb-6 md:mb-8">
           Industries
         </h2>
 
@@ -5147,7 +5149,7 @@
         data-canvas-theme="cta"></canvas>
 
       <div class="cta-banner-inner relative z-10 mx-auto max-w-[85%] py-20 md:py-28 lg:py-32 text-center">
-        <div class="flex justify-center items-center gap-3 mb-5">
+        <div class="cta-banner-badge flex justify-center items-center gap-3 mb-5">
           <div class="bg-[#05c6c5] w-2.5 h-2.5"></div>
           <div class="text-[#05c6c5] font-display font-medium text-sm md:text-base tracking-wider uppercase">Get Started
           </div>
@@ -5168,9 +5170,8 @@
     </section>
     <!-- contact page   -->
     <section id="contact" class="why-choose-us-section relative overflow-hidden">
-      <!-- Canvas background animation -->
-      <canvas class="section-canvas absolute inset-0 w-full h-full pointer-events-none z-0"
-        data-canvas-theme="industries"></canvas>
+      <!-- Animated AI Synaptic Web background canvas -->
+      <canvas id="ai-synapse-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
       <!-- Side color-mixing animated glows -->
       <div class="section-side-bg" aria-hidden="true">
         <div class="section-side-glow section-side-glow--left section-side-glow--blue"></div>
@@ -5184,11 +5185,11 @@
           </div>
         </div>
         <h2
-          class="text-center text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-medium text-black leading-tight tracking-tight max-w-4xl mx-auto">
+          class="scroll-reveal-heading text-center text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-medium text-black leading-tight tracking-tight max-w-4xl mx-auto">
           Let’s Build Intelligent Solutions Together
         </h2>
         <div class="w-full flex justify-between gap-10 items-center flex-wrap mt-20">
-          <div class="w-[calc(50%-1.25rem)] flex flex-col gap-6">
+          <div class="contact-cards-left w-[calc(50%-1.25rem)] flex flex-col gap-6">
             <!-- Location Card -->
             <div
               class="flex items-center gap-6 bg-white p-6 rounded-2xl border border-slate-100 shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_40px_rgba(5,198,197,0.1)] hover:border-[#05c6c5]/30 transition-all duration-300">
@@ -5409,7 +5410,7 @@
               </div>
             </div>
           </div>
-          <div class="w-[calc(50%-1.5rem)]">
+          <div class="contact-form-right w-[calc(50%-1.5rem)]">
             <form id="contactForm" novalidate
               class="bg-white p-8 rounded-2xl border border-slate-100 shadow-[0_10px_30px_rgba(0,0,0,0.05)] flex flex-col gap-5">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
